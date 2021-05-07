@@ -1,0 +1,19 @@
+{
+  "name": "forum-app",
+  "version": "1.0.0",
+  "description": "This application is about make and answer questions",
+  "main": "index.js",
+  "dependencies": {
+    "@symfony/webpack-encore": "^1.1.2",
+    "autoprefixer": "^10.2.5",
+    "postcss-loader": "^5.2.0",
+    "stimulus": "^2.0.0",
+    "tailwindcss": "^2.1.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "Davids Prusis Aka Poseidons",
+  "license": "ISC"
+}

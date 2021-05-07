@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+        {% endblock %}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+        {% endblock %}
+    </head>
+    <body>
+    {% block header %}
+            <header class="header w-full flex items-center">
+                        <div class="header-inner w-3/4 flex items-center mx-auto py-2">
+                    <a href="{{ path('forum') }}">
+                        <img src="https://cdn.dribbble.com/users/10882/screenshots/15172621/media/cd2246d5d0f54f9a4316bd4d276764b2.png?compress=1&resize=400x300" class="mx-5 text-2xl rounded-full w-24" />
+                    </a>
+                    <nav class="nav w-full flex justify-center">
+                        <ul>
+                            <a class="text-gray-600 px-4 py-2 rounded-md hover:bg-green-500 hover:text-white" href="{{ path('forum') }}">Forum</a>
+                            <a class="text-gray-600 px-4 py-2 rounded-md hover:bg-green-500 hover:text-white" href="#about">About queswer</a>
+                            <a class="text-gray-600 px-4 py-2 rounded-md hover:bg-green-500 hover:text-white" href="#support">Support</a>
+                            <a class="text-gray-600 px-4 py-2 rounded-md hover:bg-green-500 hover:text-white" href="#contributing">Contribute</a>
+                        </ul>
+                    </nav>
+                    <div class="header-profile">
+                        {% if app.user %}
+                            <img id="profile_avatar" src="{{ '/uploads/avatars/' ~ app.user.avatar }}" class="w-24 rounded-full bg-white p-2 cursor-pointer" alt="profile_avatar">
+                        {% else %}
+                            <i class="fas fa-user text-5xl text-gray-700"></i>
+                        {% endif %}
+                        <div style="box-shadow: 0px 2px 15px 5px rgba(0,0,0,0.15);" class="profile-dropdown bg-white w-30 mt-7 absolute">
+                            <ul class="flex flex-col p-2 px-4">
+                                <a class="text-gray-600 px-4 py-2 rounded-md hover:bg-green-500 hover:text-white" href="#profile">Profile</a>
+                                <a class="text-gray-600 px-4 py-2 rounded-md hover:bg-green-500 hover:text-white" href="#settings">Settings</a>
+                                <a class="text-gray-600 px-4 py-2 rounded-md hover:bg-green-500 hover:text-white" href="#questions">Questions</a>
+                                <a class="text-gray-600 px-4 py-2 rounded-md hover:bg-green-500 hover:text-white" href="#answers">Answers</a>
+                                <a class="text-gray-600 px-4 py-2 rounded-md hover:bg-green-500 hover:text-white" href="{{ path('app_logout') }}">Logout</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <nav class="nav flex justify-center bg-gray-200 py-2" >
+                <div class="nav-inner flex items-center w-3/4">
+                    <div class="nav-left flex">
+                        <a href="{{ path('forum') }}" class="uppercase text-gray-500 text-2xl font-medium py-1 px-3 cursor-pointer hover:text-gray-700 transition-color duration-300">All</a>
+                        <a href="{{ path('show-unanswered_questions') }}" class="uppercase text-gray-500 text-2xl font-medium py-1 px-3 cursor-pointer hover:text-gray-700 transition-color duration-300">Unanswered</a>
+                        <a href="{{ path('show-answered_questions') }}" class="uppercase text-gray-500 text-2xl font-medium py-1 px-3 cursor-pointer hover:text-gray-700 transition-color duration-300">Answered</a>
+                    </div>
+                    <div class="nav-middle mx-2 w-full">
+                        <form method="POST" class="search-container w-full flex items-center">
+                            <input id='question-search' name="question-title" class="bg-white text-gray-700 text-xl outline-none border-none p-2 w-full rounded-md" type="text" placeholder="Search questions to answer">
+                            <button type='submit' id="submitBtn">
+                                <i class="fas fa-search ml-3 text-gray-600 transition-color duration-500 hover:text-gray-800 cursor-pointer text-xl"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="nav-right w-2/6 ml-5">
+                        <a href="{{ path('forum-question_create') }}">
+                            <button class="ask-questions p-2 w-full bg-green-300 uppercase text-gray-800 font-medium rounded-md transition-color duration-200 hover:text-white hover:bg-green-400 cursor-pointer">Ask your question</button>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            <div class='hidden' id='div'></div>
+    {% endblock %}
+        {% block body %}
+        {% endblock %}
+    </body>
+
+
+</html>

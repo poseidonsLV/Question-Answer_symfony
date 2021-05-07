@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forum{% endblock %}
+
+{% block body %}
+    <div class="flex">
+
+        <main class="w-full mx-5">
+
+            <nav class='flex justify-between py-5 border-b border-gray-200'>
+                <div class="text-green-600 font-medium text-xl grid place-items-center"><p>{{ questions|length }} questions</p></div>
+                <div class="filters flex items-center">
+                    <div class="filter-option__expander flex items-center p-2 border-r border-gray-200 cursor-pointer font-medium text-gray-500 hover:text-gray-600">
+                        <p>Sort By</p>
+                        <i class="fas fa-angle-double-left mr-3 ml-2 mt-1 transform transition-all duration-200"></i>
+                    </div>
+                    <div class="filter-options__expand flex items-center">
+                        <div class="filter-option flex items-center p-2 border-r border-gray-200 cursor-pointer font-medium text-gray-500 hover:text-gray-600">
+                            <p>date</p>
+                            <i class="fas fa-sort-down ml-2 mb-1"></i>
+                        </div>
+                        <div class="filter-option flex items-center p-2 border-r border-gray-200 cursor-pointer font-medium text-gray-500 hover:text-gray-600">
+                            <p>Answers</p>
+                            <i class="fas fa-sort-down ml-2 mb-1"></i>
+                        </div>
+                        <div class="filter-option flex items-center p-2 cursor-pointer font-medium text-gray-500 hover:text-gray-600">
+                            <p>votes</p>
+                            <i class="fas fa-sort-down ml-2 mb-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            {% for question in questions %}
+
+                <div class="question flex rounded-md border-b border-gray-300 bg-gray-200 py-2 px-2 my-5">
+                    <div class="question-left flex flex-col justify-center w-full py-2">
+                        <a href="{{ path('forum-question_single-show', {qid: question.id}) }}" class="title text-gray-800 font-medium text-2xl text-gray-700 transition-color duration-200 hover:text-green-500">{{ ( question.title|length > 100 ? question.title[:100] ~ '...' : question.title ) }}</a>
+                        {% if question.tags is not same as(NULL) %}
+                        <div class="tags mt-2 py-1 px-3 text-gray-600 text-sm font-medium border border-gray-600 w-min "><p>{{ question.tags }}</p></div>
+                        {% endif %}
+                    </div>
+                    <div class="question-right flex items-center text-center">
+                        <div class="py-2 px-5 w-24 h-16 flex flex-col justify-center bg-gradient-to-b from-gray-50 to-gray-200">
+                            <p class="font-bold text-2xl text-gray-600">{{ question.votes }}</p>
+                            <p class="text-gray-800 font-medium">votes</p>
+                        </div>
+                        <div class="p-3 w-24 h-16 flex flex-col justify-center bg-gradient-to-b from-yellow-50 to-yellow-200">
+                            <p class="font-bold text-2xl text-gray-600" >{{ question.answers }}</p>
+                            <p class="text-gray-800 font-medium">answers</p>
+                        </div>
+                        <div class="p-3 w-24 h-16 flex flex-col justify-center bg-gradient-to-b from-green-50 to-green-200">
+                            <p class="font-bold text-2xl text-gray-600">{{ question.views }}</p>
+                            <p class="text-gray-800 font-medium" >views</p>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </main>
+
+        <aside id="aside" class="h-full w-2/12 my-5 mx-5" >
+            <div class="subscribe my-5 flex flex-col">
+                <p class="font-medium text-xl" >Subscribe for our security announcements list</p>
+                <input class="my-3 p-3 outline-none border-2 focus:border-green-500 rounded-md" type="text" placeholder="Email Address...">
+                <button class="p-3 bg-green-500 text-xl font-medium text-white hover:bg-green-600">Subscribe</button>
+            </div>
+            <div class="contributors">
+                <header class="bg-gray-200 flex justify-between items-center p-2">
+                    <i class="fas fa-wrench text-2xl text-gray-400"></i>
+                    <p class="text-gray-700 font-medium text-xl">Contributors</p>
+                </header>
+                {% if contributors|length > 0 %}
+                    <div class="contributors-list my-3 grid grid-cols-4 place-items-center">
+                        {% for contributor in contributors %}
+                            <img src="{{ '/uploads/avatars/' ~ contributor.avatar }}" class="fas fa-user text-7xl text-gray-700 cursor-pointer"  alt="contributor_avatar"/>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <h1 class="text-gray-800 text-2xl text-center my-5 font-bold">No contributors</h1>
+                {% endif %}
+                <footer class="bg-gray-200 flex justify-between items-center p-5"></footer>
+            </div>
+        </aside>
+
+    </div>
+
+    <script>
+        $('.filter-options__expand').hide();
+
+        $('.filter-option__expander').click(function() {
+            slideOptions();
+            $('.fa-angle-double-left').toggleClass('rotate-180');
+        })
+        function slideOptions(){
+            $('.filter-options__expand').animate({width:'toggle'},350);
+        }
+
+    </script>
+{% endblock %}
