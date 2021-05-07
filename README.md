@@ -6,3 +6,5 @@ Follow/Unfollow the user
 Tracking question views,votes,answers
 
 Question owner is able to approve given answer
+
+Uses Webpack and Tailwindcss
