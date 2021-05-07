@@ -7,4 +7,4 @@ Tracking question views,votes,answers
 
 Question owner is able to approve given answer
 
-Uses Webpack and Tailwindcss
+Uses Webpack ( module bundler ) and Tailwindcss ( CSS framework )
